@@ -1,10 +1,12 @@
 package com.tree.rulerdemo;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Scroller;
 
@@ -42,7 +44,7 @@ public class RecordWaveView extends View {
     private static final int SCREEN_RULER_COUNT = 30;
 
     //绘制时长间隔
-    private static final int DRAW_SPACE_TIME = 100;
+    private static final int DRAW_SPACE_TIME = 200;
     //秒与秒之间间隔的刻度数
     private static final int SECOND_SPACE_NUM = 5;
     //单位一秒
@@ -56,8 +58,9 @@ public class RecordWaveView extends View {
      */
     private float mTextSize, mPathWidth, mLineNumHSpace;
     //最大录音时长
-    private static final long MAX_SECONDS = 10 * 1000;
+    private long maxSeconds = 10 * 1000;
     private float mRuleTotalCount;//总刻度数
+    private float mRuleTotalDistance;//总刻度长度
 
     //屏幕内 开始时间和结束时间
     private long mRuleStartTime;
@@ -67,16 +70,15 @@ public class RecordWaveView extends View {
 
     private float height;
     private float width;
-    private Runnable rulerScrollRunnable;
+    private ValueAnimator mValueAnimator;
+    private float mDistanceX;
 
     public RecordWaveView(Context context) {
         this(context, null);
-//        init(context);
     }
 
     public RecordWaveView(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
-//        init(context);
     }
 
     public RecordWaveView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -92,7 +94,8 @@ public class RecordWaveView extends View {
         mRulerSpaceHeight = CommonUtils.dip2px(context, 8);
         mRulerSpaceMaxHeight = mRulerSpaceHeight * 2;
         //因为最开始和结束位置会设置一个刻度间隔，所以总数会+2
-        mRuleTotalCount = MAX_SECONDS * 4 + 2;
+        mRuleTotalCount = maxSeconds / SECOND * 5 + 2;
+        mRuleTotalDistance = mRuleTotalCount * mRulerSpace;
 
         mTextSize = CommonUtils.dip2px(context, 10);
         mPathWidth = CommonUtils.dip2px(context, 0.5f);
@@ -112,14 +115,26 @@ public class RecordWaveView extends View {
         timeNumberPaint.setAntiAlias(true);
         timeNumberPaint.setTextSize(mTextSize);
         timeNumberPaint.setTextAlign(Paint.Align.CENTER);
-        //刻度尺滑动runnable
-        rulerScrollRunnable = new Runnable() {
+
+        timeIndicatPaint = new Paint();
+        timeIndicatPaint.setColor(Color.RED);
+        timeIndicatPaint.setStyle(Paint.Style.STROKE);
+        timeIndicatPaint.setStrokeWidth(mPathWidth);
+        timeIndicatPaint.setAntiAlias(true);
+        timeRulerPaint.setDither(true);
+
+        //前3s以及最后3s 尺子不动
+        mValueAnimator = ValueAnimator.ofFloat(0, 1);
+        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void run() {
-                mRuleStartTime += DRAW_SPACE_TIME;
-                locateTo(mRuleStartTime);
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float animatedValue = (float) valueAnimator.getAnimatedValue();
+                mDistanceX = mRuleTotalDistance * animatedValue;
+                Log.d("onAnimationUpdate", "curdistance:" + mDistanceX);
+                postInvalidate();
             }
-        };
+        });
+        mValueAnimator.setDuration(maxSeconds);
     }
 
     @Override
@@ -144,7 +159,7 @@ public class RecordWaveView extends View {
      * @param canvas
      */
     private void onDrawLine(Canvas canvas) {
-        canvas.drawLine(0, height, width, height, timeRulerPaint);
+        canvas.drawLine(0, height, mRuleTotalDistance, height, timeRulerPaint);
     }
 
     /**
@@ -154,21 +169,33 @@ public class RecordWaveView extends View {
      */
     private void onDrawRuler(Canvas canvas) {
         long tempTime = mRuleStartTime;
-        if (tempTime == 0) {
-            canvas.translate(mRulerSpace, 0);
+//        if (tempTime == 0) {
+//            canvas.translate(mRulerSpace, 0);
+//        } else {
+//            canvas.translate(0, 0);
+//        }
+        float distance = 0;
+        float currentPlayTime = mValueAnimator.getCurrentPlayTime();
+
+        if (currentPlayTime < 3000) {
+            distance = 0;
+        } else if (currentPlayTime < 7000) {
+            distance = -1 * (currentPlayTime / 1000 - 3) * SECOND_SPACE_NUM * mRulerSpace;
+//            distance = -1 * (mDistanceX- 3 * SECOND_SPACE_NUM * mRulerSpace);
         } else {
-            canvas.translate(0, 0);
+            distance = -4 * SECOND_SPACE_NUM * mRulerSpace;
         }
-        //绘制30个刻度条以及对应时间值
-        for (int i = 0; i <= SCREEN_RULER_COUNT; i++) {
+
+        //绘制刻度条以及对应时间值
+        for (int i = 0; i <= mRuleTotalCount; i++) {
             if (tempTime % SECOND == 0) { //整值
-                canvas.drawLine(i * mRulerSpace, height, i * mRulerSpace,
+                canvas.drawLine(i * mRulerSpace + distance, height, i * mRulerSpace + distance,
                         height - mRulerSpaceMaxHeight, timeRulerPaint);
                 //整值文字
-                canvas.drawText(CommonUtils.timeParse(tempTime), i * mRulerSpace,
+                canvas.drawText(CommonUtils.timeParse(tempTime), i * mRulerSpace + distance,
                         height - mRulerSpaceMaxHeight - mLineNumHSpace, timeNumberPaint);
             } else {
-                canvas.drawLine(i * mRulerSpace, height, i * mRulerSpace,
+                canvas.drawLine(i * mRulerSpace + distance, height, i * mRulerSpace + distance,
                         height - mRulerSpaceHeight, timeRulerPaint);
             }
             //每个刻度加两百毫秒
@@ -182,8 +209,22 @@ public class RecordWaveView extends View {
      * @param canvas
      */
     private void onDrawIndicate(Canvas canvas) {
+        //前3s和后3s动
+        float currentPlayTime = mValueAnimator.getCurrentPlayTime();
+        float distance = 0;
 
+        if (currentPlayTime < 3000) {
+            distance = mDistanceX;
+        } else if (currentPlayTime < 7000) {
+            distance = 3 * SECOND_SPACE_NUM * mRulerSpace;
+        } else {
+                distance =
+                        3 * SECOND_SPACE_NUM*mRulerSpace + (currentPlayTime / 1000 - 7) *
+                        SECOND_SPACE_NUM *mRulerSpace;
+//            distance = mDistanceX - 4 * SECOND_SPACE_NUM * mRulerSpace;
+        }
 
+        canvas.drawLine(distance, 0, distance, height, timeIndicatPaint);
     }
 
     /**
@@ -200,11 +241,11 @@ public class RecordWaveView extends View {
         }
     }
 
-    public void scrollToScale() {
+    private void scrollToScale() {
         smoothScrollBy((int) mRulerSpace, 0);
     }
 
-    public void smoothScrollBy(int dx, int dy) {
+    private void smoothScrollBy(int dx, int dy) {
         mScroller.startScroll(mScroller.getFinalX(), mScroller.getFinalY(), dx, dy);
     }
 
@@ -219,13 +260,16 @@ public class RecordWaveView extends View {
      * 把刻度尺定位到指定位置
      */
     public void locateTo(long millisecond) {
-        mRuleStartTime = millisecond;
+       /* mRuleStartTime = millisecond;
         //一屏幕最多显示6s,当传入的值在最后6s范围内，就强行赋值为最后6s的起始值，因为尾端需要多画个空格，所以-1
         if (mRuleStartTime > MAX_SECONDS - ((SCREEN_RULER_COUNT - 1) * 200)) {
             mRuleStartTime = MAX_SECONDS - ((SCREEN_RULER_COUNT - 1) * 200);
-        }
-        //开始滚动
-        scrollToScale();
-        invalidate();
+        }*/
+        float dis = (mRuleStartTime / maxSeconds) * mRuleTotalDistance;
+        mValueAnimator.start();
+//        smoothScrollTo((int) dis,  0);
+//        scrollToScale();
+//        invalidate();
     }
+
 }

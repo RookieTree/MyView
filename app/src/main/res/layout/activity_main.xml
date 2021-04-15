@@ -6,21 +6,25 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.tree.rulerdemo.RecordWaveView
-        android:id="@+id/record_wave_view"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/start_move"
+        android:id="@+id/btn_bottom_view"
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginBottom="30dp"
-        android:text="开始滚动"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="30dp"
+        android:text="自定义底部TabView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btn_record_view"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:text="自定义录音RulerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_bottom_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>
