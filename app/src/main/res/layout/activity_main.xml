@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:background="@color/white">
 
     <Button
@@ -27,4 +28,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_bottom_view" />
+
+    <LinearLayout
+        android:layout_marginBottom="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/ll"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="80dp"
+        android:clipChildren="false"
+        android:layout_height="80dp">
+        <com.tree.rulerdemo.SoundRippleView
+            android:id="@+id/sp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
