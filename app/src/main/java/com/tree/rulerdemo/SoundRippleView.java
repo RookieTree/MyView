@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import androidx.annotation.RequiresApi;
 public class SoundRippleView extends View {
 
     private float mInitialRadius;   // 初始波纹半径
-    private long mDuration = 3200; // 一个波纹从创建到消失的持续时间
+    private long mDuration = 1600; // 一个波纹从创建到消失的持续时间
 
     private boolean mIsRunning;
     private ValueAnimator mValueAnimator;
@@ -35,6 +37,7 @@ public class SoundRippleView extends View {
     private int startAlpha = 200;
 
     private List<Circle> mCircleList;
+    private Interpolator mInterpolator;
 
     private final Runnable mCreateCircle = new Runnable() {
         @Override
@@ -56,9 +59,12 @@ public class SoundRippleView extends View {
 
     public SoundRippleView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            init();
+        }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void init() {
         mCircleList = new ArrayList<>();
         //构造参数：传入每个圆环之前的半径差距百分比
@@ -71,7 +77,8 @@ public class SoundRippleView extends View {
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintSolid = new Paint(Paint.ANTI_ALIAS_FLAG);
-
+//        mInterpolator= new PathInterpolator(0.25f,0.1f,0.25f,1);
+        mInterpolator= new LinearInterpolator();
         mValueAnimator = ValueAnimator.ofFloat(0, 1);
         mValueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mValueAnimator.setRepeatMode(ValueAnimator.RESTART);
@@ -110,7 +117,7 @@ public class SoundRippleView extends View {
      */
     public void start() {
         mIsRunning=true;
-        new Thread(mCreateCircle).start();
+        mCreateCircle.run();
     }
 
     /**
@@ -144,18 +151,20 @@ public class SoundRippleView extends View {
         }
 
         public int getAlpha() {
-            if (1 - mProgress - p < 0) {
-                return (int) (startAlpha * (2 - (p + mProgress)));
+            float interpolation = mInterpolator.getInterpolation(mProgress);
+            if (1 - interpolation - p < 0) {
+                return (int) (startAlpha * (2 - (p + interpolation)));
             } else {
-                return (int) (startAlpha * (1 - mProgress - p));
+                return (int) (startAlpha * (1 - interpolation - p));
             }
         }
 
         public float getRadius() {
-            if (mProgress + p > 1) {
-                return mInitialRadius + (rx - mInitialRadius) * (p + mProgress - 1);
+            float interpolation = mInterpolator.getInterpolation(mProgress);
+            if (interpolation + p > 1) {
+                return mInitialRadius + (rx - mInitialRadius) * (p + interpolation - 1);
             } else {
-                return mInitialRadius + (rx - mInitialRadius) * (mProgress + p);
+                return mInitialRadius + (rx - mInitialRadius) * (interpolation + p);
             }
         }
     }

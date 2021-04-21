@@ -29,21 +29,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_bottom_view" />
 
-    <LinearLayout
-        android:layout_marginBottom="50dp"
-        app:layout_constraintStart_toStartOf="parent"
+    <Button
+        android:id="@+id/btn_sound_view"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:text="自定义声纹SoundView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/ll"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="80dp"
-        android:clipChildren="false"
-        android:layout_height="80dp">
-        <com.tree.rulerdemo.SoundRippleView
-            android:id="@+id/sp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_record_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
