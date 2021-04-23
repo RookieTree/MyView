@@ -19,6 +19,7 @@
         <activity android:name=".BottomViewActivity"/>
         <activity android:name=".RecordViewActivity"/>
         <activity android:name=".SoundRippleActivity"/>
+        <activity android:name=".MotionBallActivity"/>
     </application>
 
 </manifest>

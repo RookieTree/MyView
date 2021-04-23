@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnBottomView;
     private Button mBtnRulerView;
     private Button mBtnSoundView;
-    private SoundRippleView mSp;
-//    private SoundRippleView2 mSp;
+    private Button mBtnBallView;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -25,11 +25,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnBottomView = findViewById(R.id.btn_bottom_view);
         mBtnRulerView = findViewById(R.id.btn_record_view);
         mBtnSoundView = findViewById(R.id.btn_sound_view);
+        mBtnBallView = findViewById(R.id.btn_ball_view);
 
         mBtnBottomView.setOnClickListener(this);
         mBtnRulerView.setOnClickListener(this);
         mBtnSoundView.setOnClickListener(this);
-//        mSp.setInterpolator(new PathInterpolator(0.25f,0.1f,0.25f,1));
+        mBtnBallView.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_sound_view:
                 startActivity(new Intent(this, SoundRippleActivity.class));
+                break;
+            case R.id.btn_ball_view:
+                startActivity(new Intent(this, MotionBallActivity.class));
                 break;
             default:
                 break;

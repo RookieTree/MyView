@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
 
@@ -14,9 +13,8 @@ import java.util.List;
 
 
 /**
- * 功能描述: 上麦名片动效 波纹涟漪
- * 作者: Kong
- * 时间: 2021/4/19
+ * 水波纹view 第二种写法：每隔固定时间，创建新的circle,去绘制
+ * 可利用享元模式创建circle 进行优化
  */
 public class SoundRippleView2 extends View {
 
@@ -103,10 +101,9 @@ public class SoundRippleView2 extends View {
         Iterator<Circle> iterator = mCircleList.iterator();
         while (iterator.hasNext()) {
             Circle circle = iterator.next();
-            float radius = circle.getCurrentRadius();
-            Log.d("sp",circle.hashCode()+",radius:"+radius);
-            if (System.currentTimeMillis() - circle.mCreateTime < mDuration) {
-                mPaint.setAlpha(circle.getAlpha());
+            float radius = getCurrentRadius(circle.getCreateTime());
+            if (System.currentTimeMillis() - circle.getCreateTime() < mDuration) {
+                mPaint.setAlpha(getAlpha(radius));
                 canvas.drawCircle(getWidth() / 2, getHeight() / 2, radius, mPaint);
             } else {
                 iterator.remove();
@@ -145,25 +142,35 @@ public class SoundRippleView2 extends View {
         mLastCreateTime = currentTime;
     }
 
-    private class Circle {
+    public static class Circle {
         private long mCreateTime;
 
         Circle() {
             mCreateTime = System.currentTimeMillis();
         }
 
-        int getAlpha() {
-            float percent = (getCurrentRadius() - mInitialRadius) / (mMaxRadius - mInitialRadius);
-            return (int) (255 - mInterpolator.getInterpolation(percent) * 255);
+        public long getCreateTime() {
+            return mCreateTime;
         }
 
-        float getCurrentRadius() {
-            float percent = (System.currentTimeMillis() - mCreateTime) * 1.0f / mDuration;
-            return mInitialRadius + mInterpolator.getInterpolation(percent) * (mMaxRadius - mInitialRadius);
+        public void setCreateTime(long createTime) {
+            mCreateTime = createTime;
         }
+
     }
 
     public void setInterpolator(Interpolator interpolator) {
         mInterpolator = interpolator;
+    }
+
+
+    private int getAlpha(float radius) {
+        float percent = (radius - mInitialRadius) / (mMaxRadius - mInitialRadius);
+        return (int) (255 - mInterpolator.getInterpolation(percent) * 255);
+    }
+
+    private float getCurrentRadius(long createTime) {
+        float percent = (System.currentTimeMillis() - createTime) * 1.0f / mDuration;
+        return mInitialRadius + mInterpolator.getInterpolation(percent) * (mMaxRadius - mInitialRadius);
     }
 }

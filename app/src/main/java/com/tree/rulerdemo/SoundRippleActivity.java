@@ -2,6 +2,7 @@ package com.tree.rulerdemo;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
@@ -19,7 +20,7 @@ public class SoundRippleActivity extends AppCompatActivity {
 
     private Button mBtnStart;
     private Button mBtnStop;
-    private SoundRippleView sp;
+    private SoundRippleView2 sp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class SoundRippleActivity extends AppCompatActivity {
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStop = findViewById(R.id.btn_stop);
         sp = findViewById(R.id.sp);
+        sp.setInterpolator(new LinearInterpolator());
         mBtnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

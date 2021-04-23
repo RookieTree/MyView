@@ -17,9 +17,7 @@ import androidx.annotation.RequiresApi;
 
 
 /**
- * 功能描述: 上麦名片动效 波纹涟漪
- * 作者: Kong
- * 时间: 2021/4/19
+ * 水波纹view 第一种写法：每个circle共享一个进度，如果放入插值器，会产生顿挫感，效果不佳
  */
 public class SoundRippleView extends View {
 
