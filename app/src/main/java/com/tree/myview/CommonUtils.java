@@ -1,4 +1,4 @@
-package com.tree.rulerdemo;/*
+package com.tree.myview;/*
  * 深圳市有信网络技术有限公司
  * Copyright (c) 2016 All Rights Reserved.
  */

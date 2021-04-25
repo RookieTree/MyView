@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/btn_bottom_view"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
@@ -20,7 +20,7 @@
 
     <Button
         android:id="@+id/btn_record_view"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
@@ -31,7 +31,7 @@
 
     <Button
         android:id="@+id/btn_sound_view"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
@@ -49,5 +49,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_sound_view" />
+
+    <Button
+        android:id="@+id/btn_refresh_view"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:text="自定义刷新View"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_ball_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

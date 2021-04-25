@@ -1,4 +1,4 @@
-package com.tree.rulerdemo;
+package com.tree.myview;
 
 import android.graphics.PointF;
 
