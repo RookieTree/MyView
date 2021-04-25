@@ -1,4 +1,4 @@
-package com.tree.myview;
+package com.tree.myview.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

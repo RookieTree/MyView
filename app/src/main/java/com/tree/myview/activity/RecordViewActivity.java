@@ -1,9 +1,7 @@
-package com.tree.myview;
+package com.tree.myview.activity;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.tree.myview.R;
+import com.tree.myview.view.RecordWaveView;
 
 /*
  *  @项目名：  RulerDemo
@@ -13,14 +11,17 @@ import androidx.appcompat.app.AppCompatActivity;
  *  @创建时间:  4/15/21 3:14 PM
  *  @描述：    TODO
  */
-public class RecordViewActivity extends AppCompatActivity {
+public class RecordViewActivity extends BaseActivity {
 
     private RecordWaveView mRecordWaveView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_record_view);
+    public int getLayoutId() {
+        return R.layout.activity_record_view;
+    }
+
+    @Override
+    public void init() {
         mRecordWaveView = findViewById(R.id.record_view);
 
         mRecordWaveView.locateTo(1000);

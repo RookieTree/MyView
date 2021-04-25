@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.tree.myview.RefreshView
+    <com.tree.myview.view.RefreshView
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,6 +19,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </com.tree.myview.RefreshView>
+    </com.tree.myview.view.RefreshView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RulerDemo">
-        <activity android:name="com.tree.myview.MainActivity">
+        <activity android:name="com.tree.myview.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tree.myview.BottomViewActivity"/>
-        <activity android:name="com.tree.myview.RecordViewActivity"/>
-        <activity android:name="com.tree.myview.SoundRippleActivity"/>
-        <activity android:name="com.tree.myview.MotionBallActivity"/>
-        <activity android:name="com.tree.myview.RefreshActivity"/>
+        <activity android:name=".activity.BottomViewActivity"/>
+        <activity android:name=".activity.RecordViewActivity"/>
+        <activity android:name=".activity.SoundRippleActivity"/>
+        <activity android:name=".activity.MotionBallActivity"/>
+        <activity android:name=".activity.RefreshActivity"/>
+        <activity android:name=".activity.DianzhanActivity"/>
     </application>
 
 </manifest>

@@ -1,10 +1,9 @@
-package com.tree.myview;
+package com.tree.myview.activity;
 
-import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.tree.myview.R;
+import com.tree.myview.view.RefreshView;
 
 /*
  *  @项目名：  RulerDemo
@@ -14,11 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
  *  @创建时间:  4/23/21 3:36 PM
  *  @描述：    刷新view
  */
-public class RefreshActivity extends AppCompatActivity {
+public class RefreshActivity extends BaseActivity {
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_refresh);
+    public int getLayoutId() {
+        return R.layout.activity_refresh;
+    }
+
+    @Override
+    public void init() {
         RefreshView refreshView = findViewById(R.id.refresh_view);
         refreshView.setOnRefreshCallback(new RefreshView.RefreshCallback() {
             @Override

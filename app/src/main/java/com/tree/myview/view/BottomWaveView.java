@@ -1,4 +1,4 @@
-package com.tree.myview;
+package com.tree.myview.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -12,6 +12,8 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.tree.myview.util.BezierUtils;
 
 import java.util.ArrayList;
 import java.util.List;

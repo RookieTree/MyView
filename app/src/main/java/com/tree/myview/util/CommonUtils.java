@@ -1,4 +1,4 @@
-package com.tree.myview;/*
+package com.tree.myview.util;/*
  * 深圳市有信网络技术有限公司
  * Copyright (c) 2016 All Rights Reserved.
  */

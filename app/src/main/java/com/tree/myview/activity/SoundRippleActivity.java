@@ -1,12 +1,11 @@
-package com.tree.myview;
+package com.tree.myview.activity;
 
-import android.os.Bundle;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.tree.myview.R;
+import com.tree.myview.view.SoundRippleView2;
 
 /*
  *  @项目名：  RulerDemo
@@ -16,16 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
  *  @创建时间:  4/21/21 10:52 AM
  *  @描述：    声音波动view
  */
-public class SoundRippleActivity extends AppCompatActivity {
+public class SoundRippleActivity extends BaseActivity {
 
     private Button mBtnStart;
     private Button mBtnStop;
     private SoundRippleView2 sp;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sound_ripple);
+    public int getLayoutId() {
+        return R.layout.activity_sound_ripple;
+    }
+
+    @Override
+    public void init() {
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStop = findViewById(R.id.btn_stop);
         sp = findViewById(R.id.sp);

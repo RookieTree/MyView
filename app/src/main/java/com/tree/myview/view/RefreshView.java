@@ -1,4 +1,4 @@
-package com.tree.myview;
+package com.tree.myview.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
