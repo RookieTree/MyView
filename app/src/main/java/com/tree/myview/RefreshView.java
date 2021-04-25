@@ -10,10 +10,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.BounceInterpolator;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 /*
  *  @项目名：  RulerDemo
@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
  *  @创建时间:  4/23/21 3:06 PM
  *  @描述：    刷新view
  */
-public class RefreshView extends View {
+public class RefreshView extends ConstraintLayout {
     private int width;
     private int height;
     private Paint mTopPaint;
@@ -56,6 +56,16 @@ public class RefreshView extends View {
     private float ballY;
     private float topY;
     private static final int DROP_FINISH = -1;
+    private RefreshCallback mCallback;
+    public interface RefreshCallback{
+        void refreshFinish();
+    }
+    public void setOnRefreshCallback(RefreshCallback callback){
+        mCallback=callback;
+    }
+    public void removeCallback(){
+        mCallback=null;
+    }
 
     public RefreshView(Context context) {
         this(context, null);
@@ -70,7 +80,9 @@ public class RefreshView extends View {
         init();
     }
 
+
     private void init() {
+        setWillNotDraw(false);
         mTopPaint = new Paint();
         mTopPaint.setColor(Color.BLACK);
         mTopPaint.setStyle(Paint.Style.FILL);
@@ -105,8 +117,10 @@ public class RefreshView extends View {
             @Override
             public void onAnimationEnd(Animator animation) {
                 mDropProgress = DROP_FINISH;
-                postInvalidateDelayed(2000);
-
+                invalidate();
+                if (mCallback!=null){
+                    mCallback.refreshFinish();
+                }
             }
 
             @Override
@@ -122,6 +136,11 @@ public class RefreshView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         width = w;
         height = h;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return true;
     }
 
     @Override
@@ -163,7 +182,7 @@ public class RefreshView extends View {
             mPath.moveTo(0, 0);
             mPath.quadTo(width / 2, topY * (1 - mTopProgress), width, 0);
             mPath.close();
-            if (step == STEP_BALL_PULL) {
+            if (step <= STEP_BALL_PULL) {
                 //画球体缩小
                 canvas.drawCircle(width / 2, ballY * (1 - mTopProgress),
                         ballRadius * (1 - mTopProgress), mBallPaint);
@@ -206,11 +225,20 @@ public class RefreshView extends View {
                     mValueAnimatorTop.start();
                     mValueAnimatorDrop.start();
                 }
-                invalidate();
                 break;
             default:
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        mValueAnimatorTop.removeAllUpdateListeners();
+        mValueAnimatorTop.removeAllListeners();
+        mValueAnimatorDrop.removeAllUpdateListeners();
+        mValueAnimatorDrop.removeAllListeners();
+        removeCallbacks(null);
     }
 }
