@@ -42,6 +42,7 @@ public class DianzhanView extends View {
     private boolean isStartThrow;
     private long drawTimeRate = 50;
     private List<StarBean> mStarBeanList;
+    private long lastDownTime;
 
     private final Runnable mDrawRunnable = new Runnable() {
         @Override
@@ -111,9 +112,9 @@ public class DianzhanView extends View {
             return;
         }
         Iterator<StarBean> iterator = mStarBeanList.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             StarBean next = iterator.next();
-            if (next.isThrowFinish()){
+            if (next.isThrowFinish()) {
                 iterator.remove();
                 continue;
             }
@@ -137,6 +138,11 @@ public class DianzhanView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                if (System.currentTimeMillis() - lastDownTime < 200) {
+                    lastDownTime = System.currentTimeMillis();
+                    return true;
+                }
+                lastDownTime = System.currentTimeMillis();
                 float downX = event.getX();
                 float downY = event.getY();
                 if (Math.abs(downX - cx) < 50 && Math.abs(downY - cy) < 50) {
