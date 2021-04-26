@@ -138,8 +138,7 @@ public class DianzhanView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (System.currentTimeMillis() - lastDownTime < 200) {
-                    lastDownTime = System.currentTimeMillis();
+                if (System.currentTimeMillis() - lastDownTime < 150) {
                     return true;
                 }
                 lastDownTime = System.currentTimeMillis();
