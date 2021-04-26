@@ -1,5 +1,8 @@
 package com.tree.myview.view;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,7 +13,6 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +20,20 @@ import androidx.annotation.RequiresApi;
 
 
 /**
- * 水波纹view 第三种写法：每个circle有自己独立的进度，并且进度由runnable控制
- * 通过控制mDuration时间，可以使其效果不会顿挫太久
+ * 水波纹view 第三种写法：每个circle有自己独立的进度，并且进度由objectanimator控制
+ *
  */
 public class SoundRippleView3 extends View {
 
     private float mInitialRadius;   // 初始波纹半径
     private long mDuration = 1600; // 一个波纹从创建到消失的持续时间
-    private int rate = 50;//频率
     private int drawTimeRate = 50;
 
-    private boolean mIsRunning = false;
+    private boolean mIsRunning;
 
     private Paint mPaint;
     private Paint mPaintSolid;
     private int rx, ry;
-    private int startAlpha = 200;
     private Interpolator mInterpolator;
     private List<Circle> mCircleList;
 
@@ -64,17 +64,14 @@ public class SoundRippleView3 extends View {
         mCircleList = new ArrayList<>();
         //构造参数：delay
         Circle circle1 = new Circle(0);
-        Circle circle2 = new Circle(400);
-        Circle circle3 = new Circle(800);
+        Circle circle2 = new Circle(800);
         mCircleList.add(circle1);
         mCircleList.add(circle2);
-        mCircleList.add(circle3);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(Color.BLACK);
         mPaintSolid = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintSolid.setColor(Color.RED);
-
-
     }
 
     @Override
@@ -86,13 +83,15 @@ public class SoundRippleView3 extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (!mIsRunning) {
+            return;
+        }
         for (int i = 0; i < mCircleList.size(); i++) {
             Circle circle = mCircleList.get(i);
             mPaint.setAlpha(circle.getAlpha());
             canvas.drawCircle(rx, ry, circle.getRadius(), mPaint);
         }
         canvas.drawCircle(rx, ry, mInitialRadius, mPaintSolid);
-
     }
 
     public void start() {
@@ -105,72 +104,67 @@ public class SoundRippleView3 extends View {
             Circle circle = mCircleList.get(i);
             circle.start();
         }
-
         invalidate();
     }
 
     public void stop() {
         mIsRunning = false;
         removeCallbacks(mDrawRunnable);
+        invalidate();
+        for (int i = 0; i < mCircleList.size(); i++) {
+            Circle circle = mCircleList.get(i);
+            circle.pause();
+        }
     }
 
 
     private class Circle {
         //时间差
+        private int alpha;
+        private float radius;
+        private AnimatorSet mSet;
         private long p;
-        private float mProgress = 0;
-        private long lp;
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         Circle(long p) {
             this.p = p;
-            lp = mDuration / rate;
+        }
 
+        public void setAlpha(int alpha) {
+            this.alpha = alpha;
+        }
+
+        public void setRadius(float radius) {
+            this.radius = radius;
         }
 
         public int getAlpha() {
-            float interpolation = mInterpolator.getInterpolation(mProgress);
-            return (int) (startAlpha * (1 - interpolation));
+            return alpha;
         }
 
         public float getRadius() {
-            float interpolation = mInterpolator.getInterpolation(mProgress);
-            return mInitialRadius + (rx - mInitialRadius) * interpolation;
+            return radius;
         }
-
-        public float getProgress() {
-            return mProgress;
-        }
-
-        private final Runnable mCreateCircle = new Runnable() {
-            @Override
-            public void run() {
-                if (mIsRunning) {
-                    float divide = divide(1, lp);
-                    mProgress += divide;
-                    if (mProgress > 1) {
-                        mProgress = 0;
-                    }
-                    postDelayed(mCreateCircle, lp);
-                }
-            }
-        };
 
         public void start() {
-            postDelayed(mCreateCircle, p);
+            if (mSet == null) {
+                ObjectAnimator alphaAnimator = ObjectAnimator.ofInt(this, "alpha", 255, 0);
+                ObjectAnimator radiusAnimator = ObjectAnimator.ofFloat(this, "radius",
+                        mInitialRadius, rx);
+                alphaAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                alphaAnimator.setRepeatMode(ValueAnimator.RESTART);
+                radiusAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                radiusAnimator.setRepeatMode(ValueAnimator.RESTART);
+                radiusAnimator.setInterpolator(mInterpolator);
+                mSet = new AnimatorSet();
+                mSet.play(radiusAnimator).with(alphaAnimator);
+                mSet.setDuration(mDuration);
+                mSet.setStartDelay(p);
+            }
+            mSet.start();
         }
-    }
 
-    /**
-     * 除法 保留小数点后两位
-     *
-     * @param l1
-     * @param l2
-     * @return
-     */
-    private float divide(long l1, long l2) {
-        BigDecimal b1 = new BigDecimal(l1);
-        BigDecimal b2 = new BigDecimal(l2);
-        return b1.divide(b2, 2, BigDecimal.ROUND_HALF_UP).floatValue();
+        public void pause() {
+            mSet.end();
+        }
     }
 }

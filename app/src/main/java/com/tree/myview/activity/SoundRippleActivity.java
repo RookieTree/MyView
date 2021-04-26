@@ -1,11 +1,10 @@
 package com.tree.myview.activity;
 
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 
 import com.tree.myview.R;
-import com.tree.myview.view.SoundRippleView2;
+import com.tree.myview.view.SoundRippleView3;
 
 /*
  *  @项目名：  RulerDemo
@@ -19,7 +18,7 @@ public class SoundRippleActivity extends BaseActivity {
 
     private Button mBtnStart;
     private Button mBtnStop;
-    private SoundRippleView2 sp;
+    private SoundRippleView3 sp;
 
     @Override
     public int getLayoutId() {
@@ -31,7 +30,7 @@ public class SoundRippleActivity extends BaseActivity {
         mBtnStart = findViewById(R.id.btn_start);
         mBtnStop = findViewById(R.id.btn_stop);
         sp = findViewById(R.id.sp);
-        sp.setInterpolator(new LinearInterpolator());
+
         mBtnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

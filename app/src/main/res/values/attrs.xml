@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SoundRippleView4">
+        <attr name="sound_ripple_color" format="color" />
+        <attr name="sound_ripple_strokeWidth" format="float" />
+        <attr name="sound_ripple_duration" format="integer" />
+        <attr name="sound_ripple_amount" format="integer" />
+        <attr name="sound_ripple_scale" format="float" />
+        <attr name="sound_ripple_style" format="enum">
+            <enum name="fillRipple" value="0" />
+            <enum name="strokeRipple" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="RippleView">
+        <attr name="min_circle_radius" format="dimension" />
+        <attr name="circle_count" format="integer" />
+        <attr name="ripple_speed" format="integer" />
+        <attr name="ripple_color" format="color" />
+        <attr name="ripple_stroke_color" format="color" />
+        <attr name="ripple_stroke_width" format="dimension" />
+    </declare-styleable>
+</resources>
