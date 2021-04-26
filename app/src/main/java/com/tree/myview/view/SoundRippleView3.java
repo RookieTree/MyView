@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
@@ -90,8 +89,6 @@ public class SoundRippleView3 extends View {
         for (int i = 0; i < mCircleList.size(); i++) {
             Circle circle = mCircleList.get(i);
             mPaint.setAlpha(circle.getAlpha());
-            Log.d("sp3",
-                    circle.hashCode() + ",getRadius:" + circle.getRadius() + ",getProgress:" + circle.getProgress());
             canvas.drawCircle(rx, ry, circle.getRadius(), mPaint);
         }
         canvas.drawCircle(rx, ry, mInitialRadius, mPaintSolid);
