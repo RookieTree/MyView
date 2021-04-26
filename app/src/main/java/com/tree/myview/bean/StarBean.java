@@ -31,8 +31,10 @@ public class StarBean {
     private float starAlpha = 255;
     private int mDuration = 1200;
     private Context mContext;
+    private boolean isThrowFinish;
+
     public StarBean(Context context) {
-        mContext=context;
+        mContext = context;
         mBitmap = BitmapFactory.decodeResource(context.getResources(),
                 ImgManager.getInstance().getImg());
         mRectF = new RectF();
@@ -55,7 +57,7 @@ public class StarBean {
     }
 
     public Bitmap getBitmap() {
-        if (mBitmap==null){
+        if (mBitmap == null) {
             mBitmap = BitmapFactory.decodeResource(mContext.getResources(),
                     ImgManager.getInstance().getImg());
         }
@@ -68,6 +70,10 @@ public class StarBean {
 
     public void setStarAlpha(float starAlpha) {
         this.starAlpha = starAlpha;
+    }
+
+    public boolean isThrowFinish() {
+        return isThrowFinish;
     }
 
     /**
@@ -112,6 +118,12 @@ public class StarBean {
             public void onAnimationEnd(Animator animation) {
                 animatorSetDown.play(translateAnimationXDown).with(translateAnimationYDown).with(alphaAnimation);
                 animatorSetDown.start();
+            }
+        });
+        animatorSetDown.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isThrowFinish = true;
             }
         });
     }

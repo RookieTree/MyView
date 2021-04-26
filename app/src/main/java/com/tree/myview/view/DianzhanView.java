@@ -8,15 +8,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.tree.myview.R;
 import com.tree.myview.bean.StarBean;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import androidx.annotation.Nullable;
 
@@ -76,7 +76,7 @@ public class DianzhanView extends View {
 
     private void init(Context context) {
         mContext = context;
-        mStarBeanList = new CopyOnWriteArrayList<>();
+        mStarBeanList = new ArrayList<>();
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -110,12 +110,16 @@ public class DianzhanView extends View {
         if (!isStartThrow) {
             return;
         }
-        Log.d("aaa", "mStarBeanList:" + mStarBeanList.size());
-        for (StarBean starBean : mStarBeanList) {
-            mPaintStar.setAlpha((int) starBean.getStarAlpha());
-            canvas.drawBitmap(starBean.getBitmap(), null, starBean.getDsts(), mPaintStar);
+        Iterator<StarBean> iterator = mStarBeanList.iterator();
+        while (iterator.hasNext()){
+            StarBean next = iterator.next();
+            if (next.isThrowFinish()){
+                iterator.remove();
+                continue;
+            }
+            mPaintStar.setAlpha((int) next.getStarAlpha());
+            canvas.drawBitmap(next.getBitmap(), null, next.getDsts(), mPaintStar);
         }
-
     }
 
     public void startThrowStar() {
