@@ -21,7 +21,6 @@ import androidx.annotation.RequiresApi;
 
 /**
  * 水波纹view 第三种写法：每个circle有自己独立的进度，并且进度由objectanimator控制
- *
  */
 public class SoundRippleView3 extends View {
 
@@ -124,6 +123,9 @@ public class SoundRippleView3 extends View {
         private float radius;
         private AnimatorSet mSet;
         private long p;
+        private ObjectAnimator mAlphaAnimator;
+        private ObjectAnimator mRadiusAnimator;
+
 
         Circle(long p) {
             this.p = p;
@@ -145,26 +147,37 @@ public class SoundRippleView3 extends View {
             return radius;
         }
 
+        public void setAlphaAnimator(ObjectAnimator alphaAnimator) {
+            mAlphaAnimator = alphaAnimator;
+        }
+
+        public void setRadiusAnimator(ObjectAnimator radiusAnimator) {
+            mRadiusAnimator = radiusAnimator;
+        }
+
         public void start() {
             if (mSet == null) {
-                ObjectAnimator alphaAnimator = ObjectAnimator.ofInt(this, "alpha", 255, 0);
-                ObjectAnimator radiusAnimator = ObjectAnimator.ofFloat(this, "radius",
-                        mInitialRadius, rx);
-                alphaAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                alphaAnimator.setRepeatMode(ValueAnimator.RESTART);
-                radiusAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                radiusAnimator.setRepeatMode(ValueAnimator.RESTART);
-                radiusAnimator.setInterpolator(mInterpolator);
+                mAlphaAnimator = ObjectAnimator.ofInt(this, "alpha", 255, 0);
+                mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", mInitialRadius, rx);
+                mAlphaAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                mAlphaAnimator.setRepeatMode(ValueAnimator.RESTART);
+                mRadiusAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                mRadiusAnimator.setRepeatMode(ValueAnimator.RESTART);
+                mRadiusAnimator.setInterpolator(mInterpolator);
+
                 mSet = new AnimatorSet();
-                mSet.play(radiusAnimator).with(alphaAnimator);
+                mSet.play(mRadiusAnimator).with(mAlphaAnimator);
                 mSet.setDuration(mDuration);
                 mSet.setStartDelay(p);
+
             }
             mSet.start();
+
         }
 
         public void pause() {
             mSet.end();
         }
+
     }
 }
