@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.tree.myview.R;
-import com.tree.myview.view.SoundRippleView3;
+import com.tree.myview.view.SoundRippleView;
 
 /*
  *  @项目名：  RulerDemo
@@ -18,7 +18,7 @@ public class SoundRippleActivity extends BaseActivity {
 
     private Button mBtnStart;
     private Button mBtnStop;
-    private SoundRippleView3 sp;
+    private SoundRippleView sp;
 
     @Override
     public int getLayoutId() {

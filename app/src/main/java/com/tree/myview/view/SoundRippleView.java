@@ -5,14 +5,18 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Interpolator;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.PathInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 
@@ -37,16 +41,39 @@ public class SoundRippleView extends View {
     private List<Circle> mCircleList;
     private Interpolator mInterpolator;
 
-    private final Runnable mCreateCircle = new Runnable() {
+    private static final int MSG_DRAW_CIRCLE = 0;
+    private static final int MSG_DRAW_CIRCLE1 = 1;
+    private static final int MSG_DRAW_CIRCLE2 = 2;
+
+    /*private final Runnable mCreateCircle = new Runnable() {
         @Override
         public void run() {
             if (mIsRunning) {
-                mProgress+=0.02;
-                if (mProgress>1){
-                    mProgress=0;
+                mProgress += 0.02;
+                if (mProgress > 1) {
+                    mProgress = 0;
                 }
                 postInvalidate();
                 postDelayed(mCreateCircle, 60);
+            }
+        }
+    };*/
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what == MSG_DRAW_CIRCLE) {
+                for (Circle circle : mCircleList) {
+                    if (circle.isStartDraw()) {
+                        circle.addProgress();
+                    }
+                }
+                postInvalidate();
+                mHandler.sendEmptyMessageDelayed(MSG_DRAW_CIRCLE, 60);
+            } else if (msg.what == MSG_DRAW_CIRCLE1) {
+                mCircleList.get(0).setStartDraw(true);
+            } else if (msg.what == MSG_DRAW_CIRCLE2) {
+                mCircleList.get(1).setStartDraw(true);
             }
         }
     };
@@ -65,30 +92,15 @@ public class SoundRippleView extends View {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void init() {
         mCircleList = new ArrayList<>();
-        //构造参数：传入每个圆环之前的半径差距百分比
-        Circle circle1 = new Circle(0f);
-        Circle circle2 = new Circle(0.3f);
-        Circle circle3 = new Circle(0.6f);
+        //构造参数：传入每个圆环之间的延迟
+        Circle circle1 = new Circle(0);
+        Circle circle2 = new Circle(1000);
         mCircleList.add(circle1);
         mCircleList.add(circle2);
-        mCircleList.add(circle3);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaintSolid = new Paint(Paint.ANTI_ALIAS_FLAG);
-//        mInterpolator= new PathInterpolator(0.25f,0.1f,0.25f,1);
-        mInterpolator= new LinearInterpolator();
-        mValueAnimator = ValueAnimator.ofFloat(0, 1);
-        mValueAnimator.setRepeatCount(ValueAnimator.INFINITE);
-        mValueAnimator.setRepeatMode(ValueAnimator.RESTART);
-        mValueAnimator.setDuration(mDuration);
-        mValueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                mProgress = (float) valueAnimator.getAnimatedValue();
-                invalidate();
-            }
-        });
-
+        mInterpolator = new PathInterpolator(0.25f, 0.1f, 0.25f, 1);
     }
 
     @Override
@@ -102,68 +114,85 @@ public class SoundRippleView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (!mIsRunning) {
+            return;
+        }
         for (int i = 0; i < mCircleList.size(); i++) {
             Circle circle = mCircleList.get(i);
-            mPaint.setAlpha(circle.getAlpha());
-            canvas.drawCircle(rx, ry, circle.getRadius(), mPaint);
+            if (circle.isStartDraw()) {
+                mPaint.setAlpha(circle.getAlpha());
+                canvas.drawCircle(rx, ry, circle.getRadius(), mPaint);
+            }
         }
         canvas.drawCircle(rx, ry, mInitialRadius, mPaintSolid);
     }
 
-    /**
-     * 用thread启动，效果比插值器好一点
-     */
     public void start() {
-        mIsRunning=true;
-        mCreateCircle.run();
+        if (mIsRunning) {
+            return;
+        }
+        mIsRunning = true;
+        for (Circle circle : mCircleList) {
+            if (circle.delayTime == 0) {
+                mHandler.sendEmptyMessage(MSG_DRAW_CIRCLE1);
+            } else {
+                mHandler.sendEmptyMessageDelayed(MSG_DRAW_CIRCLE2, circle.delayTime);
+            }
+        }
+        mHandler.sendEmptyMessage(MSG_DRAW_CIRCLE);
     }
 
-    /**
-     * 用插值动画启动，周期之前切换会有顿挫感
-     */
-    public void startByAnimator(){
-        mValueAnimator.start();
-//        invalidate();
-    }
-
-    public void stop(){
-        mIsRunning=false;
+    public void stop() {
+        mIsRunning = false;
         invalidate();
+        mHandler.removeCallbacksAndMessages(null);
+        for (Circle circle : mCircleList) {
+            circle.resetProgress();
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void stopByAnimator(){
-        mValueAnimator.pause();
-    }
 
     private class Circle {
-        private float radius;
-        private int alpha;
-        //传入每个圆环之前的半径差距百分比
-        private float p;
+        public long delayTime;
+        private float progress;
+        private boolean isStartDraw;
 
-        Circle(float p) {
-            this.p = p;
-            alpha = (int) (startAlpha * (1 - p));
-            radius = mInitialRadius + (rx - mInitialRadius) * p;
+        Circle(int delayTime) {
+            this.delayTime = delayTime;
+        }
+
+        public boolean isStartDraw() {
+            return isStartDraw;
+        }
+
+        public void setStartDraw(boolean startDraw) {
+            isStartDraw = startDraw;
+        }
+
+        public float getProgress() {
+            progress = progress > 1f ? 0f : progress;
+            return progress;
+        }
+
+        public void resetProgress() {
+            progress = 0;
+            isStartDraw=false;
+        }
+
+        public void addProgress() {
+            progress += 0.02;
         }
 
         public int getAlpha() {
-            float interpolation = mInterpolator.getInterpolation(mProgress);
-            if (1 - interpolation - p < 0) {
-                return (int) (startAlpha * (2 - (p + interpolation)));
-            } else {
-                return (int) (startAlpha * (1 - interpolation - p));
-            }
+            float interpolation = mInterpolator.getInterpolation(getProgress());
+            return (int) (startAlpha * (1 - interpolation));
+
         }
 
         public float getRadius() {
-            float interpolation = mInterpolator.getInterpolation(mProgress);
-            if (interpolation + p > 1) {
-                return mInitialRadius + (rx - mInitialRadius) * (p + interpolation - 1);
-            } else {
-                return mInitialRadius + (rx - mInitialRadius) * (interpolation + p);
-            }
+            float interpolation = mInterpolator.getInterpolation(getProgress());
+            return mInitialRadius + (rx - mInitialRadius) * interpolation;
+
         }
     }
 }

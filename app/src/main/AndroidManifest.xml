@@ -22,6 +22,8 @@
         <activity android:name=".activity.MotionBallActivity"/>
         <activity android:name=".activity.RefreshActivity"/>
         <activity android:name=".activity.DianzhanActivity"/>
+        <activity android:name=".activity.MeituanBottomActivity"/>
+        <activity android:name=".activity.ChoukaActivity"/>
     </application>
 
 </manifest>
