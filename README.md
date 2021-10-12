@@ -12,3 +12,7 @@
 5.刷新view
 
 6.点赞view
+
+7.抽卡view(组合动画)
+
+8.抽卡view(motionlayout)
