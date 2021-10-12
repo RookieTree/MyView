@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start" android:alpha="0">
+
+        <Constraint
+            android:id="@+id/card"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/card1"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card2"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card3"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card4"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card5"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card6"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card7"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card8"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card9"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/card10"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end" android:alpha="1">
+
+        <Constraint
+            android:id="@+id/card"
+            android:layout_width="150dp"
+            android:layout_height="250dp"
+            android:alpha="0"
+            android:scaleX="0"
+            android:scaleY="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/card1"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="72.5dp"
+            android:layout_marginEnd="47.5dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="@+id/guide_v" />
+        <Constraint
+            android:id="@+id/card2"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginEnd="47.5dp"
+            android:alpha="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/guide_v" />
+        <Constraint
+            android:id="@+id/card3"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginEnd="47.5dp"
+            android:alpha="1"
+            android:layout_marginTop="72.5dp"
+            app:layout_constraintTop_toTopOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="@+id/guide_v" />
+
+        <Constraint
+            android:id="@+id/card4"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="140dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <Constraint
+            android:id="@+id/card5"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="5dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <Constraint
+            android:id="@+id/card6"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="5dp"
+            android:alpha="1"
+            app:layout_constraintTop_toTopOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        <Constraint
+            android:id="@+id/card7"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="140dp"
+            android:alpha="1"
+            app:layout_constraintTop_toTopOf="@+id/guide_h"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Constraint
+            android:id="@+id/card8"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginBottom="72.5dp"
+            android:layout_marginStart="47.5dp"
+            android:alpha="1"
+            app:layout_constraintBottom_toBottomOf="@+id/guide_h"
+            app:layout_constraintStart_toStartOf="@+id/guide_v"/>
+        <Constraint
+            android:id="@+id/card9"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="47.5dp"
+            android:alpha="1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guide_v" />
+        <Constraint
+            android:id="@+id/card10"
+            android:layout_width="75dp"
+            android:layout_height="125dp"
+            android:layout_marginStart="47.5dp"
+            android:alpha="1"
+            android:layout_marginTop="72.5dp"
+            app:layout_constraintTop_toTopOf="@+id/guide_h"
+            app:layout_constraintStart_toStartOf="@+id/guide_v" />
+
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="2000">
+        <OnClick
+            app:clickAction="transitionToEnd"
+            app:targetId="@+id/card" />
+    </Transition>
+
+</MotionScene>

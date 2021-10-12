@@ -31,6 +31,6 @@
         app:duration="2000"
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start" >
-        <OnClick app:clickAction="toggle"/>
+        <OnClick app:clickAction="transitionToEnd"/>
     </Transition>>
 </MotionScene>

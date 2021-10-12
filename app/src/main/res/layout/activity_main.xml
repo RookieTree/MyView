@@ -89,10 +89,20 @@
             android:layout_width="250dp"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:text="仿抽卡动画"
+            android:text="抽卡动画(组合动画)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_meituan_view" />
+
+        <Button
+            android:id="@+id/btn_chouka2"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:text="抽卡动画(motionlayout)"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_chouka" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

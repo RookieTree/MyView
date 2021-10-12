@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mBtnDianzhanView;
     private Button mBtnMeituanView;
     private Button mBtnChoukaView;
+    private Button mBtnChoukaView2;
 
     @Override
     public int getLayoutId() {
@@ -33,6 +34,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnDianzhanView = findViewById(R.id.btn_dianzhan_view);
         mBtnMeituanView = findViewById(R.id.btn_meituan_view);
         mBtnChoukaView = findViewById(R.id.btn_chouka);
+        mBtnChoukaView2 = findViewById(R.id.btn_chouka2);
 
         mBtnBottomView.setOnClickListener(this);
         mBtnRulerView.setOnClickListener(this);
@@ -42,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnDianzhanView.setOnClickListener(this);
         mBtnMeituanView.setOnClickListener(this);
         mBtnChoukaView.setOnClickListener(this);
+        mBtnChoukaView2.setOnClickListener(this);
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -71,6 +74,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_chouka:
                 startActivity(new Intent(this, ChoukaActivity.class));
+                break;
+            case R.id.btn_chouka2:
+                startActivity(new Intent(this, ChoukaActivity2.class));
                 break;
             default:
                 break;
