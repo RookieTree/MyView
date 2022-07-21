@@ -11,6 +11,6 @@
         android:gravity="center"
         android:textColor="@color/design_default_color_secondary"
         android:textSize="30sp"
-        tools:text="1111" />
+        android:text="1111" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

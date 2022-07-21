@@ -1,5 +1,7 @@
 package com.tree.myview.activity;
 
+import android.util.Log;
+
 import com.tree.myview.R;
 
 /*
@@ -19,5 +21,28 @@ public class ChoukaActivity extends BaseActivity{
     @Override
     public void init() {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("ChoukaActivity","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("ChoukaActivity","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("ChoukaActivity","onDestroy");
     }
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tree.myview">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".TreeApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RulerDemo">
@@ -25,6 +26,14 @@
         <activity android:name=".activity.MeituanBottomActivity"/>
         <activity android:name=".activity.ChoukaActivity"/>
         <activity android:name=".activity.ChoukaActivity2"/>
+        <activity android:name=".activity.ChoukaActivity3"/>
+        <activity android:name=".activity.ScrollViewActivity"/>
+        <activity android:name=".activity.BigBitmapActivity"/>
+        <activity android:name=".activity.FishActivity"/>
+        <activity android:name=".activity.ActivityViewTest"
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity android:name=".activity.ActionBallActivity"/>
     </application>
 
 </manifest>

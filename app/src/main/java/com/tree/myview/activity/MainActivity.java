@@ -18,6 +18,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mBtnMeituanView;
     private Button mBtnChoukaView;
     private Button mBtnChoukaView2;
+    private Button mBtnChoukaView3;
+    private Button mBtnViewTest;
+    private Button mBtnScroll;
+    private Button mBtnBigBitmap;
+    private Button mBtnFish;
+    private Button mBtnActionBall;
+
 
     @Override
     public int getLayoutId() {
@@ -35,6 +42,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnMeituanView = findViewById(R.id.btn_meituan_view);
         mBtnChoukaView = findViewById(R.id.btn_chouka);
         mBtnChoukaView2 = findViewById(R.id.btn_chouka2);
+        mBtnChoukaView3 = findViewById(R.id.btn_chouka3);
+        mBtnViewTest = findViewById(R.id.btn_view_test);
+        mBtnScroll = findViewById(R.id.btn_uxscroll);
+        mBtnBigBitmap = findViewById(R.id.btn_big_bitmap);
+        mBtnFish = findViewById(R.id.btn_fish);
+        mBtnActionBall = findViewById(R.id.btn_actionball);
 
         mBtnBottomView.setOnClickListener(this);
         mBtnRulerView.setOnClickListener(this);
@@ -45,6 +58,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnMeituanView.setOnClickListener(this);
         mBtnChoukaView.setOnClickListener(this);
         mBtnChoukaView2.setOnClickListener(this);
+        mBtnChoukaView3.setOnClickListener(this);
+        mBtnViewTest.setOnClickListener(this);
+        mBtnScroll.setOnClickListener(this);
+        mBtnBigBitmap.setOnClickListener(this);
+        mBtnFish.setOnClickListener(this);
+        mBtnActionBall.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -77,6 +107,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_chouka2:
                 startActivity(new Intent(this, ChoukaActivity2.class));
+                break;
+            case R.id.btn_chouka3:
+                startActivity(new Intent(this, ChoukaActivity3.class));
+                break;
+            case R.id.btn_view_test:
+                startActivity(new Intent(this, ActivityViewTest.class));
+                break;
+            case R.id.btn_uxscroll:
+                startActivity(new Intent(this, ScrollViewActivity.class));
+                break;
+            case R.id.btn_big_bitmap:
+                startActivity(new Intent(this, BigBitmapActivity.class));
+                break;
+            case R.id.btn_fish:
+                startActivity(new Intent(this, FishActivity.class));
+                break;
+            case R.id.btn_actionball:
+                startActivity(new Intent(this, ActionBallActivity.class));
                 break;
             default:
                 break;

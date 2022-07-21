@@ -1,15 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+   <!-- <EditText
+        android:id="@+id/et"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:focusable="false"
+        android:background="@color/design_default_color_secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_scroll" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/et"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_scroll" />-->
 
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="wrap_content"
+        android:minWidth="80dp"
+        android:layout_height="38dp"
+        android:background="@color/black"
+        android:textColor="@color/white"
+        android:text="11111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- 兑换按钮 -->
+    <TextView
+        android:id="@+id/t2"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        android:textColor="@color/white"
+        android:background="@color/design_default_color_error"
+        android:text="5555555555554444"
+        app:layout_constraintEnd_toStartOf="@+id/t3"
+        app:layout_constraintStart_toEndOf="@+id/t1"
+        app:layout_constraintWidth_percent="0.6"
+        app:layout_constraintWidth_max="wrap"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:background="@color/cardview_shadow_start_color"
+        android:id="@+id/t3"
+        android:layout_width="0dp"
+        android:layout_height="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="333333"
+        app:layout_constraintStart_toEndOf="@+id/t2"
+        app:layout_constraintWidth_default="spread"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.tree.myview.view.MyGroup
+        android:id="@+id/mygroup"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp">
+        <TextView
+            android:text="0101010100101"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="0101010100101"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="0101010100101"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </com.tree.myview.view.MyGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

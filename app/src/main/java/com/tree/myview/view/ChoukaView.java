@@ -45,7 +45,6 @@ public class ChoukaView extends ConstraintLayout {
             {85, -135}, {85, 0}, {85, 135},};
     private ImageView[] imgs;
 
-
     public ChoukaView(Context context) {
         this(context, null);
     }
