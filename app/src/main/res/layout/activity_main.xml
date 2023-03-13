@@ -164,5 +164,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_view_test" />
 
+        <Button
+            android:id="@+id/btn_loop"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:text="旋转木马"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_actionball" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

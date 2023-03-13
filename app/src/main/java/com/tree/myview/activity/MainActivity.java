@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mBtnBigBitmap;
     private Button mBtnFish;
     private Button mBtnActionBall;
+    private Button mBtnLoop;
 
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnBigBitmap = findViewById(R.id.btn_big_bitmap);
         mBtnFish = findViewById(R.id.btn_fish);
         mBtnActionBall = findViewById(R.id.btn_actionball);
+        mBtnLoop = findViewById(R.id.btn_loop);
 
         mBtnBottomView.setOnClickListener(this);
         mBtnRulerView.setOnClickListener(this);
@@ -64,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnBigBitmap.setOnClickListener(this);
         mBtnFish.setOnClickListener(this);
         mBtnActionBall.setOnClickListener(this);
+        mBtnLoop.setOnClickListener(this);
 
     }
 
@@ -125,6 +128,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_actionball:
                 startActivity(new Intent(this, ActionBallActivity.class));
+                break;
+            case R.id.btn_loop:
+                startActivity(new Intent(this, LoopActivity.class));
                 break;
             default:
                 break;

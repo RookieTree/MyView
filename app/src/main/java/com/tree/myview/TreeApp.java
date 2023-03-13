@@ -2,9 +2,6 @@ package com.tree.myview;
 
 import android.app.Application;
 
-import com.facebook.common.logging.FLog;
-import com.facebook.drawee.backends.pipeline.Fresco;
-
 /*
  *  @项目名：  RulerDemo
  *  @包名：    com.tree.myview
@@ -18,7 +15,5 @@ public class TreeApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Fresco.initialize(this);
-        FLog.setMinimumLoggingLevel(FLog.VERBOSE);
     }
 }

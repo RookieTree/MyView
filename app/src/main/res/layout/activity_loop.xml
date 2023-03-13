@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/motionLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_loop">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/left"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/meinv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/show_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/show_left"
+        android:layout_width="80dp"
+        android:layout_height="200dp"
+        android:src="@mipmap/meinv4"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_left" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/center"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/meinv5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+        app:layout_constraintStart_toEndOf="@+id/guideline_left"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/show_right"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/meinv6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/right"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/meinv10"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/show_right"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Carousel
+        android:id="@+id/carousel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:carousel_backwardTransition="@id/backward"
+        app:carousel_firstView="@id/show_left"
+        app:carousel_forwardTransition="@id/forward"
+        app:carousel_infinite="true"
+        app:carousel_nextState="@id/next"
+        app:carousel_previousState="@id/previous"
+        app:carousel_emptyViewsBehavior="gone"
+        app:constraint_referenced_ids="left,show_left,center,show_right,right" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="30dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="30dp" />
+</androidx.constraintlayout.motion.widget.MotionLayout>

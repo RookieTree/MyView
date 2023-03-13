@@ -34,6 +34,7 @@
             android:theme="@style/Theme.Design.Light.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.ActionBallActivity"/>
+        <activity android:name=".activity.LoopActivity"/>
     </application>
 
 </manifest>

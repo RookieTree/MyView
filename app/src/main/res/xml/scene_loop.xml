@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+    <!--  设置动画插值器   motion:motionInterpolator="easeOut"  -->
+    <!--  设置动画时常 motion:duration="100"  -->
+
+    <!-- 向前(向左) -->
+    <Transition
+        android:id="@+id/forward"
+        motion:constraintSetEnd="@+id/next"
+        motion:constraintSetStart="@+id/start">
+        <OnSwipe
+            motion:dragDirection="dragLeft"
+            motion:touchAnchorSide="left" />
+    </Transition>
+    <!-- 向后滑动(向右) -->
+    <Transition
+        android:id="@+id/backward"
+        motion:constraintSetEnd="@+id/previous"
+        motion:constraintSetStart="@+id/start">
+        <OnSwipe
+            motion:dragDirection="dragRight"
+            motion:touchAnchorSide="right" />
+    </Transition>
+
+    <!-- 开始的 -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/show_left"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/center"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:alpha="1.0"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
+            motion:layout_constraintStart_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/show_right"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/guideline_right"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <!--  向后(向左滑动)-->
+    <ConstraintSet android:id="@+id/next">
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/show_left"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toStartOf="@+id/center"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/center"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:id="@+id/show_right"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:alpha="1.0"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
+            motion:layout_constraintStart_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/right"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/show_right"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+    </ConstraintSet>
+
+
+    <!--  向前(向右滑动)-->
+    <ConstraintSet android:id="@+id/previous">
+        <Constraint
+            android:id="@+id/left"
+            android:alpha="0.8"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:alpha="1.0"
+            android:id="@+id/show_left"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
+            motion:layout_constraintStart_toStartOf="@+id/guideline_left"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/center"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/guideline_right"
+            motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+            android:alpha="0.8"
+            android:id="@+id/show_right"
+            android:layout_width="400dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/center"
+            motion:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+</MotionScene>
