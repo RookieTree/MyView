@@ -30,7 +30,6 @@
             android:id="@+id/show_left"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
@@ -39,7 +38,6 @@
             android:id="@+id/center"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
             android:alpha="1.0"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
@@ -51,12 +49,9 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toEndOf="@+id/guideline_right"
             motion:layout_constraintTop_toTopOf="parent" />
-
-
     </ConstraintSet>
 
     <!--  向后(向左滑动)-->
@@ -66,7 +61,6 @@
             android:id="@+id/show_left"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toStartOf="@+id/center"
             motion:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +69,6 @@
             android:id="@+id/center"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
@@ -85,27 +78,20 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:alpha="1.0"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
             motion:layout_constraintStart_toStartOf="@+id/guideline_left"
             motion:layout_constraintTop_toTopOf="parent" />
-
         <Constraint
             android:alpha="0.8"
             android:id="@+id/right"
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toEndOf="@+id/show_right"
             motion:layout_constraintTop_toTopOf="parent" />
-
     </ConstraintSet>
-
 
     <!--  向前(向右滑动)-->
     <ConstraintSet android:id="@+id/previous">
@@ -115,7 +101,6 @@
             android:alpha="0.8"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toStartOf="@+id/guideline_left"
@@ -126,7 +111,6 @@
             android:id="@+id/show_left"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="@+id/guideline_right"
             motion:layout_constraintStart_toStartOf="@+id/guideline_left"
@@ -138,7 +122,6 @@
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toEndOf="@+id/guideline_right"
             motion:layout_constraintTop_toTopOf="parent" />
@@ -148,11 +131,8 @@
             android:id="@+id/show_right"
             android:layout_width="120dp"
             android:layout_height="60dp"
-            android:layout_marginTop="20dp"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintStart_toEndOf="@+id/center"
             motion:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
-
-
 </MotionScene>
