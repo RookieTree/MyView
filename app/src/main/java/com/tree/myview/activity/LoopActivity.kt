@@ -14,7 +14,7 @@ import com.tree.myview.R
  *  @文件名:   LoopActivity
  *  @创建者:   rookietree
  *  @创建时间:  2023/3/10 15:46
- *  @描述：    TODO
+ *  @描述：
  */
 class LoopActivity : BaseActivity() {
     private val imgs = intArrayOf(
@@ -40,11 +40,9 @@ class LoopActivity : BaseActivity() {
                 if (view is ImageView) {
                     view.setImageResource(imgs[index])
                 }
-                //                Log.d("loopww","populate index:"+index);
             }
 
             override fun onNewItem(index: Int) {
-                Log.d("loopww", "onNewItem index:$index")
             }
         })
     }

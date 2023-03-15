@@ -35,6 +35,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".activity.ActionBallActivity"/>
         <activity android:name=".activity.LoopActivity"/>
+        <activity android:name=".activity.AutoLoopActivity"/>
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button mBtnFish;
     private Button mBtnActionBall;
     private Button mBtnLoop;
+    private Button mBtnAutoLoop;
 
 
     @Override
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnFish = findViewById(R.id.btn_fish);
         mBtnActionBall = findViewById(R.id.btn_actionball);
         mBtnLoop = findViewById(R.id.btn_loop);
+        mBtnAutoLoop = findViewById(R.id.btn_auto_loop);
 
         mBtnBottomView.setOnClickListener(this);
         mBtnRulerView.setOnClickListener(this);
@@ -67,6 +69,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mBtnFish.setOnClickListener(this);
         mBtnActionBall.setOnClickListener(this);
         mBtnLoop.setOnClickListener(this);
+        mBtnAutoLoop.setOnClickListener(this);
 
     }
 
@@ -131,6 +134,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_loop:
                 startActivity(new Intent(this, LoopActivity.class));
+                break;
+            case R.id.btn_auto_loop:
+                startActivity(new Intent(this, AutoLoopActivity.class));
                 break;
             default:
                 break;
