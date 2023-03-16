@@ -1,20 +1,16 @@
 package com.tree.myview.view
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.helper.widget.Carousel
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.lifecycle.LifecycleObserver
 import coil.load
 import com.google.android.material.imageview.ShapeableImageView
 import com.tree.myview.R
-import java.lang.ref.WeakReference
 
 
 /*
@@ -27,34 +23,24 @@ import java.lang.ref.WeakReference
  */
 class LoopBanner @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : MotionLayout(context, attrs) {
+) : MotionLayout(context, attrs), LifecycleObserver {
 
-    companion object {
-        const val MSG_START_LOOP = 1
-    }
-
-    private var carousel: LoopCarouse
+    lateinit var carousel: LoopCarouse
     private var imgs: MutableList<Int> = mutableListOf(
         R.drawable.look1
     )
     private var currPosition = 0
-    private var duration = 1500L
-    private var isLoop: Boolean = false
+    private var duration = 2000L
+    var isLoop: Boolean = false
     private var startX: Int = 0
     private var startY: Int = 0
 
-    class LoopHandler(var weakReference: WeakReference<LoopBanner>) :
-        Handler(Looper.getMainLooper()) {
-        override fun handleMessage(msg: Message) {
-            val loopBanner = weakReference.get() ?: return
-            if (msg.what == 1) {
-                loopBanner.carousel.transitionToIndex(loopBanner.currPosition + 1, 200)
-                loopBanner.startLoop()
-            }
+    private var loopRunnable = object : Runnable {
+        override fun run() {
+            carousel.transitionToIndex(currPosition + 1, 200)
+            postDelayed(this, duration)
         }
     }
-
-    private var loopHandler: LoopHandler
 
     init {
         val inflate = View.inflate(context, R.layout.view_auto_loop, this)
@@ -64,7 +50,6 @@ class LoopBanner @JvmOverloads constructor(
         val ivCenter = inflate.findViewById<ShapeableImageView>(R.id.center)
         val ivShowRight = inflate.findViewById<ShapeableImageView>(R.id.show_right)
         val ivRight = inflate.findViewById<ShapeableImageView>(R.id.right)
-        loopHandler = LoopHandler(WeakReference(this))
         carousel.parentView = this
         setAdapter()
     }
@@ -89,7 +74,6 @@ class LoopBanner @JvmOverloads constructor(
             }
 
             override fun onNewItem(index: Int) {
-                Log.d("autoloop", "index:$index")
                 currPosition = index
             }
         })
@@ -99,12 +83,15 @@ class LoopBanner @JvmOverloads constructor(
     }
 
     fun startLoop(delay: Long = duration) {
-        loopHandler.sendEmptyMessageDelayed(MSG_START_LOOP, delay)
+        if (isLoop){
+            return
+        }
+        postDelayed(loopRunnable, delay)
         isLoop = true
     }
 
     fun stopLoop() {
-        loopHandler.removeMessages(MSG_START_LOOP)
+        removeCallbacks(loopRunnable)
         isLoop = false
     }
 
@@ -124,16 +111,6 @@ class LoopBanner @JvmOverloads constructor(
             }
         }
         return super.onInterceptTouchEvent(event)
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-        stopLoop()
     }
 
 }

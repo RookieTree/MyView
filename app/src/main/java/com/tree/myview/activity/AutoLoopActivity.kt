@@ -33,9 +33,26 @@ class AutoLoopActivity : BaseActivity() {
         loopBanner = findViewById(R.id.loop_banner)
         loopBanner.setData(imgs)
         btnLoop.setOnClickListener {
-            imgs.removeAt(0)
-            imgs.removeAt(0)
-            loopBanner.setData(imgs)
+            if (loopBanner.isLoop) {
+                loopBanner.stopLoop()
+            } else {
+                loopBanner.startLoop()
+            }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        loopBanner.stopLoop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loopBanner.startLoop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loopBanner.stopLoop()
     }
 }
